@@ -1,7 +1,9 @@
 package cn.life.main;
 
 import cn.life.login.LoginInterface;
+import cn.life.pageConfig.PageConfigInterface;
 import cn.life.qiNiuPostService.QiNiuServiceInterface;
+import cn.life.userinfo.UserInfoInterface;
 import cn.life.util.Runner;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.web.Router;
@@ -38,11 +40,17 @@ public class Server extends AbstractVerticle {
         //----------------用户自定义接口开始--------------------------------
 
         //用户登录
-        router.get("/wxlogin").produces("application/json").handler(LoginInterface::onLogin);
+        router.post("/wxlogin").consumes("application/json").produces("application/json").handler(LoginInterface::onLogin);
+        //用户信息
+        router.post("/userinfo").consumes("application/json")
+                .produces("application/json").handler(UserInfoInterface::parseUserMessage);
         //用户获取上传凭证
         router.get("/file/uploadtoken").produces("application/json").handler(QiNiuServiceInterface::getUploadToken);
         //根据图片名，获取图片连接
         router.post("/file/getimageurl").produces("application/json").handler(QiNiuServiceInterface::getImageUrl);
+
+        //获取页面配置信息
+        router.get("/pageconfig").produces("application/json").handler(PageConfigInterface::pageMessage);
         //----------------用户自定义接口结束--------------------------------
 
         vertx.createHttpServer().requestHandler(router::accept).listen(8080);

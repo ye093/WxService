@@ -1,0 +1,30 @@
+use weiXinPro
+
+db.createUser({user: 'readWriteUser', pwd: 'yejy093', roles: [{role: "readWrite", db: "weiXinPro"}]})
+
+db.createUser({user: 'readUser', pwd: 'yejy093', roles: [{role: "read", db: "weiXinPro"}]})
+
+//users collection field
+users {
+    "_id":"jdfk",
+    "openId": "3333",
+    "wxUserInfo": {
+
+    },
+    "userInfo": {
+
+    },
+    "address": {
+        "province": "",
+        "city": "",
+        "county": "",
+        "town": "",
+        "detail": ""
+    }
+}
+
+//icons图标名称
+icons {
+    {page: 'mine', icons:["less_16.png", "hot_16.png", "more_unfold_16.png", "auto_16.png", "more_16.png"]}
+}
+

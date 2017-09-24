@@ -1,6 +1,5 @@
 package cn.life.test;
 
-import cn.life.qiniu.DownloadService;
 import org.junit.Test;
 
 /**
@@ -10,6 +9,7 @@ public class MyTest {
 
     @Test
     public void test() {
-        System.out.println(DownloadService.privateDownloadUrl("bar_icon_mytrip.png"));
+        String iconName = "ye.png";
+        System.out.println(iconName.substring(0, iconName.indexOf(".")));
     }
 }

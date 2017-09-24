@@ -39,43 +39,43 @@ public class Runner {
 
     static class JSAuthRunner {
         public static void main(String[] args) {
-            Runner.runJSExample("io/vertx/example/web/auth/server.js");
+            Runner.runJSExample("io/vertx/example/web/auth/server.me");
         }
     }
 
     static class JSAuthJDBC {
         public static void main(String[] args) {
-            Runner.runJSExample("io/vertx/example/web/authjdbc/server.js");
+            Runner.runJSExample("io/vertx/example/web/authjdbc/server.me");
         }
     }
 
     static class JSHelloWorldRunner {
         public static void main(String[] args) {
-            Runner.runJSExample("io/vertx/example/web/helloworld/server.js");
+            Runner.runJSExample("io/vertx/example/web/helloworld/server.me");
         }
     }
 
     static class JSRealtimeRunner {
         public static void main(String[] args) {
-            Runner.runJSExample("io/vertx/example/web/realtime/server.js");
+            Runner.runJSExample("io/vertx/example/web/realtime/server.me");
         }
     }
 
     static class JSChatRunner {
         public static void main(String[] args) {
-            Runner.runJSExample("io/vertx/example/web/chat/server.js");
+            Runner.runJSExample("io/vertx/example/web/chat/server.me");
         }
     }
 
     static class JSSessionsRunner {
         public static void main(String[] args) {
-            Runner.runJSExample("io/vertx/example/web/sessions/server.js");
+            Runner.runJSExample("io/vertx/example/web/sessions/server.me");
         }
     }
 
     static class JSTemplatingRunner {
         public static void main(String[] args) {
-            Runner.runJSExample("io/vertx/example/web/templating/mvel/server.js");
+            Runner.runJSExample("io/vertx/example/web/templating/mvel/server.me");
         }
     }
 
