@@ -7,8 +7,8 @@ public class ServiceConfig {
     /**
      * APP_ID
      */
-    public static final String APP_ID = "wx4e6481a1c749dfa4";
-    public static final String APP_SE = "0eb58dd46530958792f45e441473137b";
+    public static final String APP_ID = "";
+    public static final String APP_SE = "";
 
     public static final String BASE_SERVICE_URL = "https://www.yefamily.cn/";
     public static final String WX_BASE_URL = "https://api.weixin.qq.com/";
