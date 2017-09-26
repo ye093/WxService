@@ -8,9 +8,6 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.RoutingContext;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * Created by yejy_ on 2017-09-24.
  */
@@ -32,16 +29,19 @@ public class PageConfigInterface {
                 new JsonObject().put("_id", false), result -> {
                     if (result.succeeded()) {
                         JsonObject object = result.result();
-                        List<Object> icons = object.getJsonArray("icons").getList();
-                        List<JsonObject> newArray = icons.stream().map(PageConfigInterface::toJson).
-                                collect(Collectors.toList());
-                        JsonArray data = new JsonArray(newArray);
+                        JsonArray iconsJson = object.getJsonArray("icons");
+                        JsonObject iconsObj = new JsonObject();
+                        for (int i = 0; i < iconsJson.size(); i++) {
+                            String iconsJsonString = iconsJson.getString(i);
+                            mapUrlToJson(iconsJsonString, iconsObj);
+                        }
                         JsonObject json = new JsonObject();
                         json.put("code", 1);
-                        json.put("data", data);
+                        json.put("data", iconsObj);
                         HttpServerResponse serverResponse = routingContext.response();
                         serverResponse.putHeader("content-type", "application/json");
                         serverResponse.end(json.toString());
+                        mongoClient.close();
                     } else {
                         JsonObject json = new JsonObject();
                         json.put("code", 0);
@@ -49,15 +49,14 @@ public class PageConfigInterface {
                         HttpServerResponse serverResponse = routingContext.response();
                         serverResponse.putHeader("content-type", "application/json");
                         serverResponse.end(json.toString());
+                        mongoClient.close();
                     }
                 });
     }
 
-    private static JsonObject toJson(Object icon) {
-        String iconName = String.valueOf(icon);
+    private static void mapUrlToJson(String iconName, JsonObject obj) {
         String imageUrl = DownloadService.privateDownloadUrl(iconName);
-        JsonObject obj = new JsonObject();
-        obj.put("fileName", iconName).put("url", imageUrl);
-        return obj;
+        iconName = iconName.substring(0, iconName.indexOf("."));
+        obj.put(iconName, imageUrl);
     }
 }

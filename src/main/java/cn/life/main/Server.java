@@ -41,9 +41,17 @@ public class Server extends AbstractVerticle {
 
         //用户登录
         router.post("/wxlogin").consumes("application/json").produces("application/json").handler(LoginInterface::onLogin);
-        //用户信息
+        //微信更新获取用户信息
         router.post("/userinfo").consumes("application/json")
                 .produces("application/json").handler(UserInfoInterface::parseUserMessage);
+
+        //获取用户信息
+        router.post("/getuserinfo").consumes("application/json")
+                .produces("application/json").handler(UserInfoInterface::getUserInfo);
+
+        //更新用户信息
+        router.post("/getuserinfo").consumes("application/json")
+                .produces("application/json").handler(UserInfoInterface::updateUserInfo);
         //用户获取上传凭证
         router.get("/file/uploadtoken").produces("application/json").handler(QiNiuServiceInterface::getUploadToken);
         //根据图片名，获取图片连接
