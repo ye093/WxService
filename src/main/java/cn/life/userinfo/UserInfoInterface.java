@@ -10,7 +10,6 @@ import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.mongo.UpdateOptions;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
-import org.bson.types.ObjectId;
 
 /**
  * Created by yejy_ on 2017-09-23.
@@ -134,17 +133,15 @@ public class UserInfoInterface {
             String detail = String.valueOf(jsonObject.getValue("detail"));
             String personalitySignature = String.valueOf(jsonObject.getValue("personalitySignature"));
             JsonObject user = new JsonObject().put("$set",
-                    new JsonObject()
-                            .put("userInfo", new JsonObject().put("name", name)
-                                                             .put("gender", gender)
-                                                             .put("phone", phone)
-                                                             .put("personalitySignature", personalitySignature))
-                            .put("address", new JsonObject().put("province", province)
-                                                            .put("city", city)
-                                                            .put("county", county)
-                                                            .put("town", town)
-                                                            .put("detail", detail))
-            );
+                    new JsonObject().put("userInfo.name", name)
+                                    .put("userInfo.gender", gender)
+                                    .put("userInfo.phone", phone)
+                                    .put("userInfo.personalitySignature", personalitySignature)
+                                    .put("address.province", province)
+                                    .put("address.city", city)
+                                    .put("address.county", county)
+                                    .put("address.town", town)
+                                    .put("address.detail", detail));
 
             MongoClient mongoClient = MongoDBManager.getWriteClient(routingContext.vertx());
             mongoClient.updateCollection("users", new JsonObject().put("openId", openId),
@@ -240,7 +237,7 @@ public class UserInfoInterface {
                                     .put("personalitySignature", userInfo.getString("personalitySignature", ""));
                         }
                         JsonObject data = new JsonObject();
-                        String id = String.valueOf(objectId.getMap().values().iterator().next());
+                        String id = objectId.getString("$oid");
                         data.put("objectId", id).put("user", user).put("address", address);
                         mongoClient.close();
                         routingContext.response()

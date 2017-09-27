@@ -9,7 +9,6 @@ import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.RoutingContext;
-import org.bson.types.ObjectId;
 
 /**
  * Created by yejinyun on 2017/9/19.
@@ -39,8 +38,7 @@ public class QiNiuServiceInterface {
         if (type == ImageType.HEADER_IMAGE) {
             //更新头像
             MongoClient mongoClient = MongoDBManager.getWriteClient(routingContext.vertx());
-            ObjectId objectId = new ObjectId(objectid);
-            mongoClient.updateCollection("users", new JsonObject().put("_id", objectId),
+            mongoClient.updateCollection("users", new JsonObject().put("_id", objectid),
                     new JsonObject().put("$set",
                             new JsonObject().put("userInfo.headPic", key)
                     )

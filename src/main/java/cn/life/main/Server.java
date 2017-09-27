@@ -50,7 +50,7 @@ public class Server extends AbstractVerticle {
                 .produces("application/json").handler(UserInfoInterface::getUserInfo);
 
         //更新用户信息
-        router.post("/getuserinfo").consumes("application/json")
+        router.post("/updateuserinfo").consumes("application/json")
                 .produces("application/json").handler(UserInfoInterface::updateUserInfo);
         //用户获取上传凭证
         router.get("/file/uploadtoken").produces("application/json").handler(QiNiuServiceInterface::getUploadToken);
